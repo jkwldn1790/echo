@@ -53,7 +53,11 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 
 func getHello(w http.ResponseWriter, r *http.Request) {
 	slog.Info("got /hello request\n")
-	io.WriteString(w, "Hello, HTTP!\n")
+	username := r.URL.Query().Get("name")
+	if username == "" {
+		username = "HTTP"
+	}
+	io.WriteString(w, "Hello, "+username+"!\n")
 }
 
 func main() {
